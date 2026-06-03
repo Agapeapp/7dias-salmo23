@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7 Días con el Salmo 23 — Ágape</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F0A1A;
+    --card: #1A1030;
+    --card2: #150D28;
+    --purple: #6B4FA0;
+    --purple-light: #8B6FC0;
+    --gold: #C9A84C;
+    --gold-light: #E8C87A;
+    --text: #F0EAF8;
+    --text-soft: #B8AACE;
+    --border: rgba(107, 79, 160, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Fondo con estrellas */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 20%, rgba(107,79,160,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    opacity: var(--o, 0.5);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--o, 0.5); }
+    50% { opacity: 0.1; }
+  }
+
+  /* Header */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 60px 20px 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .cross {
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: block;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  header h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  header p {
+    font-size: 1.1rem;
+    color: var(--text-soft);
+    max-width: 520px;
+    margin: 0 auto 30px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.5s;
+  }
+
+  /* Audio player */
+  .audio-section {
+    position: relative;
+    z-index: 10;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.7s;
+  }
+
+  .audio-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .play-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--gold));
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .play-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(107,79,160,0.5);
+  }
+
+  .play-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+    margin-left: 2px;
+  }
+
+  .play-btn.playing svg.play-icon { display: none; }
+  .play-btn.playing svg.pause-icon { display: block !important; }
+
+  .audio-info {
+    flex: 1;
+  }
+
+  .audio-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .audio-sub {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+  }
+
+  .volume-hint {
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0.7;
+  }
+
+  /* Intro verse */
+  .intro-verse {
+    position: relative;
+    z-index: 10;
+    max-width: 680px;
+    margin: 50px auto;
+    padding: 0 24px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.9s;
+  }
+
+  .intro-verse blockquote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: var(--text);
+    line-height: 1.6;
+    border-left: 3px solid var(--gold);
+    padding-left: 24px;
+    text-align: left;
+    margin-bottom: 12px;
+  }
+
+  .intro-verse cite {
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Días */
+  .days-section {
+    position: relative;
+    z-index: 10;
+    max-width: 720px;
+    margin: 20px auto 60px;
+    padding: 0 20px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .day-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: border-color 0.3s;
+  }
+
+  .day-card:hover {
+    border-color: rgba(107,79,160,0.6);
+  }
+
+  .day-card.visible {
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .day-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(107,79,160,0.3), rgba(201,168,76,0.2));
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .day-meta h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .day-meta span {
+    font-size: 0.8rem;
+    color: var(--purple-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .day-verse {
+    background: rgba(107,79,160,0.12);
+    border-left: 3px solid var(--purple-light);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-soft);
+    line-height: 1.7;
+  }
+
+  .day-verse strong {
+    display: block;
+    font-size: 0.75rem;
+    font-style: normal;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .day-reflection {
+    font-size: 0.95rem;
+    color: var(--text-soft);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+
+  .day-question {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+
+  .day-question p {
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .day-question span {
+    font-size: 0.95rem;
+    color: var(--text-soft);
+    font-style: italic;
+  }
+
+  .day-prayer {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+  }
+
+  .day-prayer p {
+    font-size: 0.8rem;
+    color: var(--purple-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .day-prayer span {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+    line-height: 1.8;
+  }
+
+  /* CTA */
+  .cta-section {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .cta-section h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .cta-section p {
+    color: var(--text-soft);
+    margin-bottom: 32px;
+    font-size: 1rem;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--purple), #4a3580);
+    color: white;
+    text-decoration: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(107,79,160,0.4);
+  }
+
+  .cta-sub {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    opacity: 0.7;
+  }
+
+  /* Footer */
+  footer {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 30px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    opacity: 0.6;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--purple), var(--gold));
+    z-index: 100;
+    transition: width 0.1s;
+  }
+
+  @media (max-width: 600px) {
+    .day-card { padding: 22px 18px; }
+    header { padding: 40px 16px 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Estrellas -->
+<div class="stars" id="stars"></div>
+
+<audio id="bgAudio" loop>
+  <source src="salmo23.mp3" type="audio/mpeg">
+</audio>
+
+<header>
+  <div class="logo-text">Ágape</div>
+  <span class="cross">✝</span>
+  <h1>7 Días con el<br><em>Salmo 23</em></h1>
+  <p>Una guía devocional para encontrar paz cuando más la necesitas. Siete días, siete verdades que cambiarán cómo ves a Dios.</p>
+
+  <div class="audio-section" style="opacity:1;animation:none;margin:0 auto;">
+    <div class="audio-card">
+      <button class="play-btn" id="playBtn" onclick="toggleAudio()">
+        <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="pause-icon" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <div class="audio-info">
+        <div class="audio-title">Salmo 23 — Canto Gregoriano</div>
+        <div class="audio-sub">Escucha mientras lees y meditas</div>
+      </div>
+    </div>
+    <div class="volume-hint">🎵 Pon los auriculares y cierra los ojos un momento antes de empezar</div>
+  </div>
+</header>
+
+<div class="intro-verse">
+  <blockquote>
+    "El Señor es mi pastor; nada me faltará. En lugares de delicados pastos me hará descansar; junto a aguas de reposo me pastoreará."
+  </blockquote>
+  <cite>Salmo 23:1-2 — RV1960</cite>
+</div>
+
+<div class="days-section">
+  <div class="section-title">Tu Camino de 7 Días</div>
+
+  <!-- DÍA 1 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">1</div>
+      <div class="day-meta">
+        <h3>El Señor es mi Pastor</h3>
+        <span>Identidad y pertenencia</span>
+      </div>
+    </div>
+    <div class="day-verse">
+      <strong>Versículo del día</strong>
+      "El Señor es mi pastor; nada me faltará." — Salmo 23:1
+    </div>
+    <div class="day-reflection">
+      El primer versículo del Salmo 23 no empieza con una petición ni con una promesa condicional. Empieza con una declaración: <em>el Señor ES mi pastor</em>. No lo será, no podría serlo, no debería serlo. Es. Ahora mismo. Hoy.
+      <br><br>
+      David escribió esto desde el desierto, desde la persecución, desde noches sin respuesta. Y sin embargo, elige empezar con lo que sabe: que tiene Pastor. Que no está solo. Que alguien lo conoce por nombre y lo guía con propósito.
+      <br><br>
+      Hay una diferencia enorme entre saber que Dios existe y decir "Él es mi pastor". La primera es teología. La segunda es fe personal. Hoy te invitamos a dar ese paso: de "Dios existe" a "Dios es mi pastor". Tuyo. Hoy.
+    </div>
+    <div class="day-question">
+      <p>🤍 Para meditar</p>
+      <span>¿En qué área de tu vida te cuesta creer que el Señor es TU pastor, no solo el pastor de otros?</span>
+    </div>
+    <div class="day-prayer">
+      <p>✝ Oración</p>
+      <span>Señor, hoy quiero declarar con fe lo que muchas veces olvido: Tú eres mi pastor. No el de los que parecen tenerlo todo claro, sino el mío. El de mi historia, el de mis miedos, el de mis días rotos. Gracias porque nada me falta cuando estoy contigo. Amén.</span>
+    </div>
+  </div>
+
+  <!-- DÍA 2 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">2</div>
+      <div class="day-meta">
+        <h3>Aguas de Reposo</h3>
+        <span>Descanso en Dios</span>
+      </div>
+    </div>
+    <div class="day-verse">
+      <strong>Versículo del día</strong>
+      "En lugares de delicados pastos me hará descansar; junto a aguas de reposo me pastoreará." — Salmo 23:2
+    </div>
+    <div class="day-reflection">
+      Las ovejas no beben de aguas turbulentas. Se ahogarían. El pastor las lleva a aguas tranquilas, quietas, seguras. Dios conoce eso de ti también: que cuando el río de tu vida va demasiado agitado, no puedes beber. No puedes recibir.
+      <br><br>
+      Vivimos en una cultura que glorifica el agotamiento. Estar ocupado se ha convertido en una medalla. Pero Dios te invita hoy a algo contracultural: descansar. No porque te lo hayas ganado, sino porque Él te lo da como regalo.
+      <br><br>
+      El verdadero descanso espiritual no es ausencia de problemas. Es la presencia de Dios en medio de ellos. Es poder cerrar los ojos esta noche sabiendo que mañana Él sigue siendo pastor.
+    </div>
+    <div class="day-question">
+      <p>🤍 Para meditar</p>
+      <span>¿Cuándo fue la última vez que realmente descansaste en Dios, sin intentar resolver nada por tu cuenta?</span>
+    </div>
+    <div class="day-prayer">
+      <p>✝ Oración</p>
+      <span>Padre, vengo cansada. Cansada de intentar controlarlo todo, de buscar respuestas sola, de correr sin saber a dónde. Hoy me siento junto a esas aguas tranquilas que solo Tú puedes dar. Enséñame a descansar en Ti, no solo cuando todo va bien, sino especialmente cuando no va bien. Amén.</span>
+    </div>
+  </div>
+
+  <!-- DÍA 3 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">3</div>
+      <div class="day-meta">
+        <h3>Sendas de Justicia</h3>
+        <span>Propósito y dirección</span>
+      </div>
+    </div>
+    <div class="day-verse">
+      <strong>Versículo del día</strong>
+      "Confortará mi alma; me guiará por sendas de justicia por amor de su nombre." — Salmo 23:3
+    </div>
+    <div class="day-reflection">
+      "Por amor de su nombre." No por tus méritos, no porque lo hayas hecho bien esta semana, no porque seas suficientemente buena creyente. Él te guía porque ese es quien Él es. Su nombre es Fiel. Su nombre es Bueno. Su nombre es el que no cambia aunque tú cambies.
+      <br><br>
+      "Confortará mi alma" también se traduce como "restaurará mi alma". Hay partes de nosotros que necesitan ser restauradas. Heridas viejas, vergüenzas que cargamos, versiones rotas de nosotras mismas que pensamos que Dios no puede alcanzar. Él dice hoy: sí puede. Y lo hará.
+      <br><br>
+      Las "sendas de justicia" no son caminos perfectos, sin obstáculos. Son caminos rectos en dirección a Él. Aunque duelan. Aunque no los entendamos. Él nos guía por el camino que nos hace más parecidas a Cristo.
+    </div>
+    <div class="day-question">
+      <p>🤍 Para meditar</p>
+      <span>¿Qué área de tu alma sientes que necesita ser restaurada hoy? ¿Se la has llevado a Dios con esa honestidad?</span>
+    </div>
+    <div class="day-prayer">
+      <p>✝ Oración</p>
+      <span>Señor, confío en que me guías no porque me lo haya ganado, sino porque ese es tu nombre. Restaura las partes de mí que están rotas. Las que escondo, las que me avergüenzan, las que ya no sé cómo sanar. Guíame por tu camino, aunque no sea el más fácil. Amén.</span>
+    </div>
+  </div>
+
+  <!-- DÍA 4 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">4</div>
+      <div class="day-meta">
+        <h3>El Valle de Sombra</h3>
+        <span>Fe en la oscuridad</span>
+      </div>
+    </div>
+    <div class="day-verse">
+      <strong>Versículo del día</strong>
+      "Aunque ande en valle de sombra de muerte, no temeré mal alguno, porque tú estarás conmigo." — Salmo 23:4
+    </div>
+    <div class="day-reflection">
+      David no dice "aunque algún día pase por el valle". Dice "aunque ande". Como si el valle fuera parte del camino. Como si la oscuridad no fuera una señal de que Dios te ha abandonado, sino simplemente parte del territorio que todo creyente atraviesa.
+      <br><br>
+      La fe no nos promete evitar el valle. Nos promete que no lo cruzamos solos. "Tú estarás conmigo." Ese "tú" lo cambia todo. No "alguien" o "una fuerza superior". Tú. El que me conoce. El que ya estuvo en el valle de la muerte en la cruz y salió victorioso.
+      <br><br>
+      Si hoy estás en un valle —de enfermedad, de pérdida, de incertidumbre, de soledad— este versículo no te pide que finjas que no duele. Te pide que recuerdes que no estás sola. Él anda contigo. Cada paso.
+    </div>
+    <div class="day-question">
+      <p>🤍 Para meditar</p>
+      <span>¿En qué "valle" te encuentras ahora mismo? ¿Le has dicho a Dios honestamente cómo te sientes en él?</span>
+    </div>
+    <div class="day-prayer">
+      <p>✝ Oración</p>
+      <span>Señor, a veces el valle es tan oscuro que olvido que estás aquí. Hoy elijo creer que estás. Que tu presencia no depende de lo que yo sienta, sino de quién eres Tú. No temeré, porque Tú estás conmigo. Camina conmigo hoy. Amén.</span>
+    </div>
+  </div>
+
+  <!-- DÍA 5 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">5</div>
+      <div class="day-meta">
+        <h3>Tu Vara y Tu Cayado</h3>
+        <span>Protección y corrección</span>
+      </div>
+    </div>
+    <div class="day-verse">
+      <strong>Versículo del día</strong>
+      "Tu vara y tu cayado me infundirán aliento." — Salmo 23:4b
+    </div>
+    <div class="day-reflection">
+      El pastor usaba la vara para proteger a las ovejas de los depredadores. El cayado, para guiarlas de vuelta al camino cuando se desviaban. Dos herramientas distintas para dos situaciones distintas. Dios hace lo mismo contigo.
+      <br><br>
+      A veces lo que sientes de Dios es su vara: protección en momentos de peligro, cierre de puertas que no te convenían, un "no" que dolió pero te salvó de algo peor. Otras veces es su cayado: una corrección gentil, una convicción, una vuelta al camino que te apartaste sin darte cuenta.
+      <br><br>
+      Lo maravilloso es que ambas cosas te dan aliento. No miedo. No condena. Aliento. Porque vienen de un pastor que te ama, no de un juez que te controla. Esa es la diferencia del evangelio.
+    </div>
+    <div class="day-question">
+      <p>🤍 Para meditar</p>
+      <span>¿Hay algo en tu vida donde sientes que Dios te está guiando de vuelta al camino? ¿Cómo estás respondiendo a eso?</span>
+    </div>
+    <div class="day-prayer">
+      <p>✝ Oración</p>
+      <span>Padre, gracias porque me proteges y me corriges con amor, no con condena. Dame corazón sensible para escuchar cuando tu Espíritu me guía de vuelta. Y dame valor para seguirte aunque el camino correcto sea el más difícil. Amén.</span>
+    </div>
+  </div>
+
+  <!-- DÍA 6 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-number">6</div>
+      <div class="day-meta">
+        <h3>Mesa Preparada</h3>
+        <span>Provisión y honra</span>
+      </div>
+    </div>
+    <div class="day-verse">
+      <strong>Versículo del día</strong>
+      "Aderezas mesa delante de mí en presencia de mis angustiadores; unges mi cabeza con aceite; mi copa está rebosando." — Salmo 23:5
+    </div>
+    <div class="day-reflection">
+      Esta imagen es extraordinaria: Dios prepara una mesa para ti en medio de tus enemigos. No cuando se hayan ido. No cuando todo esté resuelto. En presencia de ellos. Como diciendo: lo que Yo tengo para ti no espera a que el contexto sea favorable.
+      <br><br>
+      El aceite en la cabeza era señal de honra, de elección, de unción. Y la copa rebosando no es apenas suficiente —es más que suficiente. Dios no da con cuentagotas. Da en abundancia. No siempre la abundancia que pedimos, pero siempre la que necesitamos.
+      <br><br>
+      Hoy, en medio de lo que sea que estés enfrentando —las críticas, las dudas, los problemas económicos, las relaciones rotas— Dios te dice: siéntate. He preparado algo para ti. Y es más de lo que imaginas.
+    </div>
+    <div class="day-question">
+      <p>🤍 Para meditar</p>
+      <span>¿Puedes recordar un momento en que Dios proveyó para ti en medio de una situación difícil? ¿Qué te dice eso sobre quién es Él hoy?</span>
+    </div>
+    <div class="day-prayer">
+      <p>✝ Oración</p>
+      <span>Señor, gracias porque tu provisión no depende de mis circunstancias. Abre mis ojos para ver la mesa que has preparado hoy, incluso en medio del caos. Que mi copa rebose de tu presencia, tu paz y tu propósito. Amén.</span>
+    </div>
+  </div>
+
+  <!-- DÍA 7 -->
+  <div class="day-card" style="border-color: rgba(201,168,76,0.4);">
+    <div class="day-header">
+      <div class="day-number" style="border-color: var(--gold); background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(107,79,160,0.2));">7</div>
+      <div class="day-meta">
+        <h3>Para Siempre</h3>
+        <span>Eternidad y promesa</span>
+      </div>
+    </div>
+    <div class="day-verse">
+      <strong>Versículo del día</strong>
+      "Ciertamente el bien y la misericordia me seguirán todos los días de mi vida, y en la casa del Señor moraré por largos días." — Salmo 23:6
+    </div>
+    <div class="day-reflection">
+      El último versículo no mira atrás con nostalgia. Mira adelante con certeza. "Me seguirán". No "quizás me sigan si me porto bien". Me seguirán. El bien y la misericordia de Dios no son premios que ganar. Son compañeros que no te abandonan.
+      <br><br>
+      David termina el salmo con la imagen que comenzó: la casa del pastor. Al final de todo el camino —con sus valles, sus aguas tranquilas, sus mesas en medio de enemigos— hay un hogar. Y ese hogar es la presencia de Dios para siempre.
+      <br><br>
+      Estos siete días no son el final del camino. Son el principio de una forma de vivir: con los ojos abiertos a quién es tu pastor, con el corazón preparado para confiar en Él incluso en el valle, y con la certeza de que el bien y la misericordia te persiguen. Hoy. Siempre.
+    </div>
+    <div class="day-question">
+      <p>🤍 Para meditar</p>
+      <span>Después de estos 7 días, ¿qué verdad del Salmo 23 quieres que te acompañe esta semana? Escríbela y ponla donde puedas verla.</span>
+    </div>
+    <div class="day-prayer">
+      <p>✝ Oración</p>
+      <span>Señor, gracias por estos siete días. Por cada verdad que encontré en este salmo. Que el bien y la misericordia me sigan hoy, mañana y todos los días de mi vida. Que mi hogar sea tu presencia. Que mi fe no sea solo de domingo, sino de cada momento. Tú eres mi pastor. Y eso lo cambia todo. Amén.</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>¿Quieres que cada día<br>sea <em>así</em>?</h2>
+  <p>Ágape es tu espacio diario de fe. Devocionales, oración guiada, la Biblia completa y una comunidad que camina contigo.</p>
+  <a href="https://myagape.app" class="cta-btn">Empieza gratis en Ágape →</a>
+  <div class="cta-sub">Sin tarjeta de crédito. Sin complicaciones. Solo fe.</div>
+</div>
+
+<footer>
+  <p>Hecho con amor por Ágape · <a href="https://myagape.app" style="color:var(--gold);text-decoration:none;">myagape.app</a></p>
+</footer>
+
+<script>
+  // Estrellas
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--o:${0.2+Math.random()*0.6};animation-delay:${Math.random()*4}s`;
+    starsEl.appendChild(s);
+  }
+
+  // Audio
+  const audio = document.getElementById('bgAudio');
+  const playBtn = document.getElementById('playBtn');
+  audio.volume = 0.4;
+
+  function toggleAudio() {
+    if (audio.paused) {
+      audio.play();
+      playBtn.classList.add('playing');
+    } else {
+      audio.pause();
+      playBtn.classList.remove('playing');
+    }
+  }
+
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    document.getElementById('progressBar').style.width = (scrolled/total*100) + '%';
+  });
+
+  // Scroll reveal para las tarjetas
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.day-card').forEach(c => observer.observe(c));
+</script>
+
+</body>
+</html>
