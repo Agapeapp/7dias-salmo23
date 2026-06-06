@@ -1,3 +1,5 @@
+raw
+Landing · HTML
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,10 +8,7 @@
 <title>7 Días con el Salmo 23 — Ágape</title>
 <meta name="description" content="Cuando no sabes qué decirle a Dios — guía devocional gratuita de 7 días con el Salmo 23">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-<!-- Script de seguimiento de Klaviyo -->
-<script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=U4uawE"></script>
-
+ 
 <style>
   :root {
     --bg: #0F0A1A;
@@ -22,11 +21,11 @@
     --text-soft: #B8AACE;
     --border: rgba(107, 79, 160, 0.3);
   }
-
+ 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
   html { scroll-behavior: smooth; }
-
+ 
   body {
     background: var(--bg);
     color: var(--text);
@@ -36,7 +35,7 @@
     overflow-x: hidden;
     min-height: 100vh;
   }
-
+ 
   /* ── FONDO ATMOSFÉRICO ── */
   body::before {
     content: '';
@@ -48,7 +47,7 @@
     pointer-events: none;
     z-index: 0;
   }
-
+ 
   /* ── ESTRELLAS ── */
   .stars {
     position: fixed;
@@ -68,7 +67,7 @@
     0%, 100% { opacity: var(--o); transform: scale(1); }
     50% { opacity: calc(var(--o) * 0.2); transform: scale(0.8); }
   }
-
+ 
   /* ── CONTENEDOR ── */
   .container {
     position: relative;
@@ -77,7 +76,7 @@
     margin: 0 auto;
     padding: 0 24px;
   }
-
+ 
   /* ── HEADER / HERO ── */
   .hero {
     position: relative;
@@ -87,7 +86,7 @@
     max-width: 700px;
     margin: 0 auto;
   }
-
+ 
   .brand {
     display: inline-flex;
     align-items: center;
@@ -96,12 +95,12 @@
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.1s;
   }
-
+ 
   .brand-cross {
     font-size: 1rem;
     color: var(--gold);
   }
-
+ 
   .brand-name {
     font-family: 'Playfair Display', serif;
     font-size: 0.9rem;
@@ -109,7 +108,7 @@
     text-transform: uppercase;
     color: var(--gold);
   }
-
+ 
   .hero-eyebrow {
     font-size: 0.8rem;
     letter-spacing: 0.25em;
@@ -119,7 +118,7 @@
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.2s;
   }
-
+ 
   .hero h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.4rem, 6vw, 4rem);
@@ -129,13 +128,13 @@
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.3s;
   }
-
+ 
   .hero h1 em {
     font-style: italic;
     color: var(--gold);
     display: block;
   }
-
+ 
   .hero-desc {
     font-size: 1.1rem;
     color: var(--text-soft);
@@ -145,7 +144,7 @@
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.4s;
   }
-
+ 
   .hero-verse {
     font-family: 'Playfair Display', serif;
     font-style: italic;
@@ -155,7 +154,7 @@
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.5s;
   }
-
+ 
   /* ── PROOF BADGES ── */
   .proof {
     display: flex;
@@ -166,7 +165,7 @@
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.6s;
   }
-
+ 
   .proof-item {
     display: flex;
     align-items: center;
@@ -174,12 +173,12 @@
     font-size: 0.85rem;
     color: var(--text-soft);
   }
-
+ 
   .proof-item span {
     color: var(--gold);
     font-size: 1rem;
   }
-
+ 
   /* ── FORM SECTION ── */
   .form-section {
     position: relative;
@@ -190,7 +189,7 @@
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.7s;
   }
-
+ 
   .form-card {
     background: var(--card);
     border: 1px solid rgba(201,168,76,0.3);
@@ -200,7 +199,7 @@
     position: relative;
     overflow: hidden;
   }
-
+ 
   .form-card::before {
     content: '';
     position: absolute;
@@ -210,82 +209,26 @@
     height: 2px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
-
+ 
   .form-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 8px;
   }
-
+ 
   .form-subtitle {
     font-size: 0.9rem;
     color: var(--text-soft);
     text-align: center;
     margin-bottom: 28px;
   }
-
-  /* Estilos para el formulario de Klaviyo */
-  .klaviyo-form-WPh827 {
-    --klaviyo-bg: transparent !important;
-  }
-
-  /* Sobrescribir estilos de Klaviyo para que encaje */
+ 
   .form-wrapper {
     position: relative;
+    min-height: 80px;
   }
-
-  /* Fallback form si Klaviyo no carga */
-  .fallback-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .fallback-form input[type="email"] {
-    width: 100%;
-    background: rgba(15,10,26,0.8);
-    border: 1px solid var(--purple);
-    border-radius: 12px;
-    padding: 16px 20px;
-    color: var(--text);
-    font-family: 'Lato', sans-serif;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  .fallback-form input[type="email"]:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
-  }
-
-  .fallback-form input::placeholder {
-    color: var(--text-soft);
-    opacity: 0.6;
-  }
-
-  .btn-primary {
-    width: 100%;
-    background: linear-gradient(135deg, var(--purple), #4a3580);
-    border: 1px solid rgba(201,168,76,0.3);
-    border-radius: 12px;
-    padding: 16px 24px;
-    color: white;
-    font-family: 'Lato', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(107,79,160,0.4);
-    background: linear-gradient(135deg, #7B5FB0, #5a4590);
-  }
-
+ 
   .form-privacy {
     font-size: 0.78rem;
     color: var(--text-soft);
@@ -294,7 +237,7 @@
     opacity: 0.7;
     line-height: 1.5;
   }
-
+ 
   /* ── QUÉ RECIBIRÁS ── */
   .what-section {
     position: relative;
@@ -303,7 +246,7 @@
     margin: 0 auto 80px;
     padding: 0 24px;
   }
-
+ 
   .section-label {
     font-size: 0.75rem;
     letter-spacing: 0.3em;
@@ -313,21 +256,21 @@
     margin-bottom: 40px;
     opacity: 0;
   }
-
+ 
   .section-label.visible {
     animation: fadeUp 0.6s ease forwards;
   }
-
+ 
   .days-preview {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
   }
-
+ 
   @media (max-width: 500px) {
     .days-preview { grid-template-columns: 1fr; }
   }
-
+ 
   .day-pill {
     background: var(--card);
     border: 1px solid var(--border);
@@ -340,15 +283,15 @@
     transform: translateY(20px);
     transition: border-color 0.3s;
   }
-
+ 
   .day-pill:hover {
     border-color: rgba(201,168,76,0.35);
   }
-
+ 
   .day-pill.visible {
     animation: fadeUp 0.5s ease forwards;
   }
-
+ 
   .day-pill-num {
     font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
@@ -358,20 +301,20 @@
     flex-shrink: 0;
     min-width: 28px;
   }
-
+ 
   .day-pill-text h4 {
     font-family: 'Playfair Display', serif;
     font-size: 0.95rem;
     margin-bottom: 3px;
     color: var(--text);
   }
-
+ 
   .day-pill-text p {
     font-size: 0.8rem;
     color: var(--text-soft);
     line-height: 1.4;
   }
-
+ 
   /* ── TESTIMONIAL ── */
   .testimonial-section {
     position: relative;
@@ -382,11 +325,11 @@
     text-align: center;
     opacity: 0;
   }
-
+ 
   .testimonial-section.visible {
     animation: fadeUp 0.6s ease forwards;
   }
-
+ 
   .testimonial-quote {
     font-family: 'Playfair Display', serif;
     font-style: italic;
@@ -397,7 +340,7 @@
     position: relative;
     padding: 0 20px;
   }
-
+ 
   .testimonial-quote::before {
     content: '"';
     font-size: 4rem;
@@ -409,14 +352,14 @@
     font-style: normal;
     line-height: 1;
   }
-
+ 
   .testimonial-author {
     font-size: 0.85rem;
     color: var(--gold);
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
-
+ 
   /* ── CTA FINAL ── */
   .cta-final {
     position: relative;
@@ -427,29 +370,29 @@
     margin: 0 auto;
     opacity: 0;
   }
-
+ 
   .cta-final.visible {
     animation: fadeUp 0.6s ease forwards;
   }
-
+ 
   .cta-final h2 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(1.6rem, 4vw, 2.2rem);
     margin-bottom: 14px;
     line-height: 1.3;
   }
-
+ 
   .cta-final h2 em {
     font-style: italic;
     color: var(--gold);
   }
-
+ 
   .cta-final p {
     color: var(--text-soft);
     margin-bottom: 28px;
     font-size: 0.95rem;
   }
-
+ 
   /* ── FOOTER ── */
   footer {
     position: relative;
@@ -461,18 +404,18 @@
     color: var(--text-soft);
     opacity: 0.5;
   }
-
+ 
   footer a {
     color: var(--gold);
     text-decoration: none;
   }
-
+ 
   /* ── ANIMACIONES ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
+ 
   /* ── DIVIDER ── */
   .divider {
     position: relative;
@@ -484,7 +427,7 @@
     font-size: 1.2rem;
     letter-spacing: 0.5em;
   }
-
+ 
   /* ── MOBILE ── */
   @media (max-width: 600px) {
     .hero { padding: 50px 20px 40px; }
@@ -494,30 +437,30 @@
 </style>
 </head>
 <body>
-
+ 
 <!-- Estrellas de fondo -->
 <div class="stars" id="stars"></div>
-
+ 
 <!-- ══════════════════ HERO ══════════════════ -->
 <div class="hero">
   <div class="brand">
     <span class="brand-cross">✝</span>
     <span class="brand-name">Ágape</span>
   </div>
-
+ 
   <p class="hero-eyebrow">Regalo gratuito para ti</p>
-
+ 
   <h1>
     Cuando no sabes<br>qué decirle a Dios
     <em>7 días con el Salmo 23</em>
   </h1>
-
+ 
   <p class="hero-desc">
     Una guía devocional que te acompaña siete días. Con reflexiones profundas, preguntas que transforman y una oración para cada momento.
   </p>
-
+ 
   <p class="hero-verse">"El Señor es mi pastor; nada me faltará." — Salmo 23:1</p>
-
+ 
   <div class="proof">
     <div class="proof-item"><span>✝</span> 100% gratuito</div>
     <div class="proof-item"><span>📖</span> 7 días de reflexión</div>
@@ -525,31 +468,30 @@
     <div class="proof-item"><span>💜</span> En español</div>
   </div>
 </div>
-
+ 
 <!-- ══════════════════ FORMULARIO ══════════════════ -->
 <div class="form-section">
   <div class="form-card">
     <h3 class="form-title">Quiero mi guía gratuita</h3>
     <p class="form-subtitle">Introduce tu email y te la enviamos ahora mismo</p>
-
+ 
     <div class="form-wrapper">
-      <!-- Formulario de Klaviyo -->
       <div class="klaviyo-form-WPh827"></div>
     </div>
-
+ 
     <p class="form-privacy">
       Sin spam. Sin publicidad. Solo fe.<br>
       Puedes darte de baja cuando quieras.
     </p>
   </div>
 </div>
-
+ 
 <div class="divider">· · ·</div>
-
+ 
 <!-- ══════════════════ QUÉ RECIBIRÁS ══════════════════ -->
 <div class="what-section">
   <p class="section-label">Lo que encontrarás</p>
-
+ 
   <div class="days-preview">
     <div class="day-pill">
       <div class="day-pill-num">1</div>
@@ -602,9 +544,9 @@
     </div>
   </div>
 </div>
-
+ 
 <div class="divider">· · ·</div>
-
+ 
 <!-- ══════════════════ TESTIMONIO ══════════════════ -->
 <div class="testimonial-section">
   <p class="testimonial-quote">
@@ -612,7 +554,7 @@
   </p>
   <p class="testimonial-author">— Zuriñe, fundadora de Ágape</p>
 </div>
-
+ 
 <!-- ══════════════════ CTA FINAL ══════════════════ -->
 <div class="cta-final">
   <h2>¿Lista para<br><em>encontrar esa paz?</em></h2>
@@ -621,12 +563,12 @@
     Sí, quiero mi guía gratuita →
   </a>
 </div>
-
+ 
 <!-- ══════════════════ FOOTER ══════════════════ -->
 <footer>
   <p>Hecho con amor por <a href="https://myagape.app">Ágape</a> · Fe · Comunidad · Palabra</p>
 </footer>
-
+ 
 <script>
   // Estrellas
   const starsEl = document.getElementById('stars');
@@ -645,13 +587,12 @@
     `;
     starsEl.appendChild(s);
   }
-
+ 
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
-        // Delay escalonado para los day-pills
         if (e.target.classList.contains('day-pill')) {
           const pills = document.querySelectorAll('.day-pill');
           pills.forEach((p, i) => {
@@ -662,11 +603,14 @@
       }
     });
   }, { threshold: 0.12 });
-
+ 
   document.querySelectorAll('.section-label, .day-pill, .testimonial-section, .cta-final').forEach(el => {
     observer.observe(el);
   });
 </script>
-
+ 
+<!-- Script de Klaviyo al final para garantizar que carga después del DOM -->
+<script src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=U4uawE"></script>
+ 
 </body>
 </html>
